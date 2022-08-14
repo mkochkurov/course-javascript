@@ -48,27 +48,18 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-  let result;
   if (Array.isArray(array) !== true || array.length === 0) {
     throw new Error('empty array');
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
   for (let i = 0; i < array.length; i++) {
-    if (fn(array[i]) === true) {
-      result = true;
-    } else {
-      result = false;
+    if (fn(array[i])) {
+      return true;
     }
   }
-  return result;
+  return false;
 }
-
-/*var myArray = [1, 2, 3, 20];
-function myFn(n) {
-  return n > 10;
-}
-console.log(isSomeTrue(myArray, myFn));*/
 
 /*
  Задание 3:
@@ -82,7 +73,7 @@ console.log(isSomeTrue(myArray, myFn));*/
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-  const array = new Array();
+  const array = [];
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
