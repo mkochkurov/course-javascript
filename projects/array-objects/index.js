@@ -85,6 +85,4 @@ function createProxy(obj) {
   return objProxy;
 }
 
-//console.log(createProxy({a: 2}));
-
 export { forEach, map, reduce, upperProps, createProxy };
