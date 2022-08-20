@@ -1,5 +1,7 @@
 /* ДЗ 4 - работа с DOM */
 
+//import { Stats } from "webpack";
+
 /*
  Задание 1:
 
@@ -49,10 +51,9 @@ function prepend(what, where) {
  */
 function findAllPSiblings(where) {
   const result = [];
-  const child = where.children;
-  for (let i = 0; i < child.length - 1; i++) {
-    if (child[i].nextElementSibling.nodeName === 'P') {
-      result.push(child[i]);
+  for (const child of where.children) {
+    if (child.nextElementSibling && child.nextElementSibling.tagName === 'P') {
+      result.push(child);
     }
   }
   return result;
@@ -147,7 +148,36 @@ function deleteTextNodesRecursive(where) {
      texts: 3
    }
  */
-function collectDOMStat(root) {}
+function collectDOMStat(root) {
+  const stat = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+  function scan(root) {
+    for (const child of root.childNodes) {
+      if (child.nodeType === Node.TEXT_NODE) {
+        stat.texts++;
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        if (child.tagName in stat.tags) {
+          stat.tags[child.tagName]++;
+        } else {
+          stat.tags[child.tagName] = 1;
+        }
+        for (const className of child.classList) {
+          if (className in stat.classes) {
+            stat.classes[className]++;
+          } else {
+            stat.classes[className] = 1;
+          }
+        }
+        scan(child);
+      }
+    }
+  }
+  scan(root);
+  return stat;
+}
 
 /*
  Задание 8 *:
@@ -181,7 +211,21 @@ function collectDOMStat(root) {}
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+function observeChildNodes(where, fn) {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        fn({
+          type: mutation.addedNodes.length ? 'insert' : 'remove',
+          nodes: [
+            ...(mutation.addedNodes.length ? mutation.addedNodes : mutation.removedNodes),
+          ],
+        });
+      }
+    });
+  });
+  observer.observe(where, { childList: true, subList: true });
+}
 
 export {
   createDivWithText,
