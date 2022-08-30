@@ -75,6 +75,8 @@ addButton.addEventListener('click', () => {
   document.cookie = `${name}=${value}`;
   cookiesMap.set(name, value);
   updateTable();
+  //addNameInput.value = '';
+  //addValueInput.value = '';
 });
 
 listTable.addEventListener('click', (e) => {
