@@ -50,7 +50,7 @@ export function createDiv() {
     startX = e.offsetX;
     startY = e.offsetY;
   });
-  div.addEventListener('mousedown', () => (currentDrag = false));
+  div.addEventListener('mouseup', () => (currentDrag = false));
   return div;
 }
 
