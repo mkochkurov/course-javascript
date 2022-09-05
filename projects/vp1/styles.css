@@ -1,0 +1,23 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+.reviews {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.review {
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+.button {
+    color: white;
+    background-color: coral;
+    border-radius: 4px;
+}
+.map {
+    width: 100%;
+    height: 100vh;
+}
