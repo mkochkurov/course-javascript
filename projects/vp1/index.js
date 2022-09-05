@@ -1,4 +1,5 @@
 import './map.html';
+import './styles.css';
 let clusterer;
 document.addEventListener('DOMContentLoaded', () => ymaps.ready(init));
 
@@ -82,7 +83,7 @@ async function openBalloon(map, coords, currentGeoObjects) {
     });
 
     document.querySelector('#add-form').addEventListener('submit', function(e) {
-        e.preventDefault(0);
+        e.preventDefault();
         
         const review = {
             coords,
